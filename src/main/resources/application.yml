@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - StripPrefix=1
+
+      routes:
+        - id: produtos
+          uri: http://localhost:8081
+          predicates:
+            - Path=/produtos/**
+
+        - id: pedidos
+          uri: http://localhost:8082
+          predicates:
+            - Path=/pedidos/**
+
+        - id: clientes
+          uri: http://localhost:8083
+          predicates:
+            - Path=/clientes/**
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
