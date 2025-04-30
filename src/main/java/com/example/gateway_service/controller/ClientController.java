@@ -26,7 +26,7 @@ public class ClientController {
         return  clientService.createClient(client);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Client getClient(@PathVariable int id){
         return clientService.getClientById(id);
     }

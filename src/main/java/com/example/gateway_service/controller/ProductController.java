@@ -31,7 +31,7 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Product getProduct(@PathVariable int id){
         return productService.getProductById(id);
     }
@@ -42,7 +42,7 @@ public class ProductController {
         return  productService.getAllProducts();
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable int id, @RequestBody Product newProduct){
         Product update = productService.updateProduct(id, newProduct);
         if (update != null){
