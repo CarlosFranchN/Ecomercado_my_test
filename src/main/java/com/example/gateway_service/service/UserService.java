@@ -1,11 +1,13 @@
 package com.example.gateway_service.service;
 
-import com.example.gateway_service.model.User;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.example.gateway_service.model.User;
 
 
 @Service
@@ -19,6 +21,11 @@ public class UserService {
         users.put(user.getId(), user);
         return user;
     }
+        
+    public List<User> getAllUsers(){
+        return new ArrayList<>(users.values());
+    }
+    
     public User getUserById(int id){
         return users.get(id);
     }

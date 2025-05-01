@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.gateway_service.model.User;
 import com.example.gateway_service.service.UserService;
 
+import java.util.*;
+
 
 @RestController
 @RequestMapping("/usuarios")
@@ -21,6 +23,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
     // Endpoint para criar um novo usuário
     @PostMapping
     public User createUser(@RequestBody User user) {
