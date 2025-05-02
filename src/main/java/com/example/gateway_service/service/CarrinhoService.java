@@ -22,23 +22,27 @@ public class CarrinhoService {
         this.produtoService = produtoService;
     }
 
-    // Adiciona produto ao carrinho com validação
     public Carrinho adicionarProduto(int clienteId, int produtoId) {
         // Verifica se cliente existe
-        if (userService.getUserById(clienteId) == null) {
+        System.out.println("Adicionar Produto");
+        System.err.println(clienteId);
+        System.err.println(produtoId);
+        User user = userService.getUserById(clienteId);
+        System.out.println(user.getName());
+        if (user == null) {
             return null;
         }
-
-        // Verifica se produto existe
+    
+        // Busca o produto
         Product produto = produtoService.getProductById(produtoId);
         if (produto == null || !produto.estaDisponivel()) {
             return null;
         }
-
+    
         // Cria ou recupera carrinho
         Carrinho carrinho = carrinhos.computeIfAbsent(clienteId, id -> new Carrinho(id));
         carrinho.addProduto(produto);
-
+    
         return carrinho;
     }
 
@@ -64,6 +68,11 @@ public class CarrinhoService {
     // Retorna carrinho do cliente
     public Carrinho getCarrinho(int clienteId) {
         return carrinhos.get(clienteId);
+    }
+
+    public String getClienteNome(int clienteId){
+        User user = userService.getUserById(clienteId);
+        return  user != null ? user.getName() : "null";
     }
 
     // Calcula total do carrinho
