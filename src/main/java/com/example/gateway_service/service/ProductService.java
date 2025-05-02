@@ -38,12 +38,12 @@ public class ProductService {
         }
         return  null;
     }
-    public boolean purchaseProduct(int id,int quantityPurchase){
-        Product item = products.get(id);
-        if (item != null && item.getQuantity() >= quantityPurchase){
-            item.setQuantity(item.getQuantity() - quantityPurchase);
-            return  true;
-        }
-        return false;
-    }
+    // public boolean purchaseProduct(int id,int quantityPurchase){
+    //     Product item = products.get(id);
+    //     if (item != null && item.getQuantity() >= quantityPurchase){
+    //         item.setQuantity(item.getQuantity() - quantityPurchase);
+    //         return  true;
+    //     }
+    //     return false;
+    // }
 }

@@ -35,8 +35,9 @@ public class ClientController {
     }
     
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String senha) {
-        boolean authenticated = clientService.authenticate(email, senha);
+    public String login(@RequestParam String email, @RequestParam String password) {
+        boolean authenticated = clientService.authenticate(email, password);
+        System.out.println(authenticated);
         return authenticated ? "Login de cliente bem-sucedido!" : "Credenciais inválidas para cliente.";
     }
 

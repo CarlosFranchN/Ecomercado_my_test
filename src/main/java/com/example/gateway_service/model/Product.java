@@ -66,5 +66,9 @@ public class Product {
         this.environmentalImpact = environmentalImpact;
     }
 
+    public boolean estaDisponivel(){
+        return  this.getQuantity() > 0;
+    }
+
 
 }

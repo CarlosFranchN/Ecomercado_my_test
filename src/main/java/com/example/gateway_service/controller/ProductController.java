@@ -27,19 +27,36 @@ public class ProductController {
 
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product){
-        return productService.createProduct(product);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product){
+        // return productService.createProduct(product);
+        return  ResponseEntity.status(201).body(productService.createProduct((product)));
     }
 
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable int id){
-        return productService.getProductById(id);
+    public ResponseEntity<Product> getProduct(@PathVariable int id){
+        // return productService.getProductById(id);
+        Product item = productService.getProductById(id);
+        ResponseEntity<Product> saida = item != null ? ResponseEntity.ok(item) :ResponseEntity.notFound().build(); 
+        return  saida;
     }
 
 
     @GetMapping()
     public List<Product> getAllProductsList(){
         return  productService.getAllProducts();
+    }
+
+    @GetMapping("/{id}/disponibilidade")
+    public ResponseEntity<String> verificarDisponibilidade(@PathVariable int id) {
+        Product item = productService.getProductById(id);
+
+        if (item == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        boolean disponivel = item.estaDisponivel();
+
+        return ResponseEntity.ok(disponivel ? "Produto disponível!" + item.getQuantity() : "Produto esgotado.");
     }
 
     @PutMapping("/{id}")
