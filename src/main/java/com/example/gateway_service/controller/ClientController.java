@@ -10,15 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gateway_service.model.Client;
 import com.example.gateway_service.service.ClientService;
+import com.example.gateway_service.service.ImpactoAmbientalService;
 
 
 @RestController
 @RequestMapping("/clientes")
 public class ClientController {
     private final ClientService clientService ;
+    private final ImpactoAmbientalService impactoAmbientalService;
 
     public ClientController(ClientService clientService){
         this.clientService = clientService;
+        this.impactoAmbientalService = new ImpactoAmbientalService();
     }
 
     @PostMapping

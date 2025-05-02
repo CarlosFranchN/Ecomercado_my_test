@@ -1,5 +1,6 @@
 package com.example.gateway_service.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,8 @@ import com.example.gateway_service.model.User;
 import com.example.gateway_service.service.UserService;
 
 import java.util.*;
+
+import com.example.gateway_service.dto.LoginRequest;
 
 
 @RestController
@@ -41,8 +44,13 @@ public class UserController {
 
     // Endpoint para login
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String senha) {
-        boolean authenticated = userService.authenticate(email, senha);
-        return authenticated ? "Login bem-sucedido!" : "Credenciais inválidas.";
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+
+        boolean authenticated = userService.authenticate(request.getEmail(),request.getPassword());
+        if (authenticated) {
+            return ResponseEntity.ok("Login bem-sucedido!");
+        } else {
+            return ResponseEntity.status(401).body("Credenciais inválidas.");
+        }
     }
 }

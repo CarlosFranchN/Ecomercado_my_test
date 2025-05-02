@@ -1,4 +1,6 @@
 spring:
+
+
   application:
     name: gateway-service
 
@@ -8,15 +10,28 @@ spring:
         - id: user-service
           uri: http://localhost:8081
           predicates:
-            - Path=/usuarios/** 
+            - Path=/usuarios/**
+
+
         - id: client-service
           uri: http://localhost:8082
           predicates:
             - Path=/clientes/**
+          filters:
+            - StripPrefix=1
+
         - id: product-service
           uri: http://localhost:8083
           predicates:
             - Path=/produtos/**
+          filters:
+            - StripPrefix=1
+
+  security:
+    user:
+      name: admin
+      password: 4796
+      enable: false
 
 server:
   port: 8080
