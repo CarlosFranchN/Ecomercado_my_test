@@ -33,11 +33,18 @@ public ResponseEntity<CarrinhoDTO> adicionar(@PathVariable int clienteId,
     return ResponseEntity.ok(new CarrinhoDTO(carrinho));
 }
 
-    @GetMapping("/{clienteId}")
-    public ResponseEntity<Carrinho> visualizar(@PathVariable int clienteId) {
-        Carrinho carrinho = carrinhoService.getCarrinho(clienteId);
-        System.out.println(carrinho.getUser());
-        System.out.println(carrinho.getItens());
-        return carrinho != null ? ResponseEntity.ok(carrinho) : ResponseEntity.notFound().build();
+@GetMapping("/{clienteId}")
+public ResponseEntity<CarrinhoDTO> visualizar(@PathVariable int clienteId) {
+    Carrinho carrinho = carrinhoService.getCarrinho(clienteId);
+
+    System.out.println("Carrinho: " + (carrinho != null ? carrinho.getClienteId() : "Nenhum"));
+    System.out.println("User: " + (carrinho != null && carrinho.getUser() != null ? carrinho.getUser().getName() : "Null"));
+    System.out.println("Itens: " + (carrinho != null ? carrinho.getItens().size() : "Null"));
+
+    if (carrinho == null) {
+        return ResponseEntity.notFound().build();
     }
+
+    return ResponseEntity.ok(new CarrinhoDTO(carrinho));
+}
 }
