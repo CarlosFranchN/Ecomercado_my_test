@@ -36,6 +36,8 @@ public ResponseEntity<CarrinhoDTO> adicionar(@PathVariable int clienteId,
     @GetMapping("/{clienteId}")
     public ResponseEntity<Carrinho> visualizar(@PathVariable int clienteId) {
         Carrinho carrinho = carrinhoService.getCarrinho(clienteId);
+        System.out.println(carrinho.getUser());
+        System.out.println(carrinho.getItens());
         return carrinho != null ? ResponseEntity.ok(carrinho) : ResponseEntity.notFound().build();
     }
 }
