@@ -1,12 +1,25 @@
 package com.example.gateway_service.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+
+@Entity
+@Table(name = "Products")
 public class Product {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
     private double price;
     private String description;
     private int quantity;
     private float environmentalImpact; 
+
+    public Product(){}
  
     public Product(int id, String name, double price, String description, int quantity, float environmentalImpact){
         this.id = id;

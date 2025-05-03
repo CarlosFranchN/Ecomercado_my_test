@@ -1,19 +1,21 @@
 package com.example.gateway_service.dto;
 
-import com.example.gateway_service.model.Product;
+import com.example.gateway_service.model.ItemCarrinho;
 
 public class ItemCarrinhoDTO {
-    private int produtoId;
-    private String name;
-    private double price;
 
-    
-    public ItemCarrinhoDTO(Product produto) {
-        this.produtoId = produto.getId();
-        this.name = produto.getName();
-        this.price = produto.getPrice();
+    private int produtoId;
+    private String nome;
+    private double preco;
+    private int quantidade;
+
+    public ItemCarrinhoDTO(ItemCarrinho item) {
+        this.produtoId = item.getProduto().getId();
+        this.nome = item.getProduto().getName();
+        this.preco = item.getProduto().getPrice();
+        this.quantidade = item.getQuantidade();
     }
-    
+
     public int getProdutoId() {
         return produtoId;
     }
@@ -22,22 +24,29 @@ public class ItemCarrinhoDTO {
         this.produtoId = produtoId;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNome(String new_name) {
-        this.name = new_name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPreco() {
+        return preco;
     }
 
-    public void setPrice(double new_price) {
-        this.price = new_price;
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 
     // getters
 }
