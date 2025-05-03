@@ -1,43 +1,42 @@
 package com.example.gateway_service.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.gateway_service.model.User;
-
+import com.example.gateway_service.repository.UserRepository;
 
 @Service
 public class UserService {
-    
-    private Map<Integer,User> users = new HashMap<>();
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private int nextId = 1;
 
-    public User createUser(User user){
-        user.setId(nextId++);
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository repository,PasswordEncoder passwordEncoder) {
+        this.userRepository = repository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // Salva usuário no banco
+    public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        users.put(user.getId(), user);
-        return user;
+        return userRepository.save(user);
     }
-        
-    public List<User> getAllUsers(){
-        return new ArrayList<>(users.values());
+    // Retorna todos os usuários do banco
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
-    
-    public User getUserById(int id){
-        return users.get(id);
+
+    // Busca usuário por ID
+    public User getUserById(int id) {
+        return userRepository.findById(id).orElse(null);
     }
-    
+
+    // Autenticação via banco
     public boolean authenticate(String email, String senha) {
-        return users.values().stream()
-            .anyMatch(u -> u.getEmail().equals(email) && passwordEncoder.matches(senha, u.getPassword()));
+        User user = userRepository.findByEmail(email);
+        return user != null && passwordEncoder.matches(senha, user.getPassword());
     }
-
 }
-
-
