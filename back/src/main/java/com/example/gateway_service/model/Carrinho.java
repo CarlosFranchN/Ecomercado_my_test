@@ -22,15 +22,14 @@ public class Carrinho {
     @Id
     private int clienteId;
 
-    // 🔗 Vincula diretamente com a entidade User
+    
     @OneToOne
     @MapsId
     @JoinColumn(name = "clienteId") // Nome da coluna FK na tabela 'carrinhos'
     private User user;
 
     // 📦 Lista de itens no carrinho
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "carrinho_id") // Coluna nas tabelas filhas que apontam para este carrinho
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemCarrinho> itens = new ArrayList<>();
 
     public Carrinho() {
@@ -42,8 +41,8 @@ public class Carrinho {
         this.clienteId = user.getId(); // O ID do carrinho é o mesmo do usuário
     }
 
-    // Adiciona um item ao carrinho
     public void addProduto(ItemCarrinho item) {
+        item.setCarrinho(this);
         this.itens.add(item);
     }
 

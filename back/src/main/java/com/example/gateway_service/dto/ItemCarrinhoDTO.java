@@ -1,9 +1,7 @@
 package com.example.gateway_service.dto;
 
 import com.example.gateway_service.model.ItemCarrinho;
-
 public class ItemCarrinhoDTO {
-
     private int produtoId;
     private String nome;
     private double preco;
@@ -48,5 +46,5 @@ public class ItemCarrinhoDTO {
         this.quantidade = quantidade;
     }
 
-    // getters
+    
 }
